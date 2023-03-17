@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -199,6 +200,7 @@ public class Maker implements Runnable {
 
         private void show(ActionEvent e) {
             panel.setVisible(false);
+
         }
 
         private JTextField name_field = new JTextField();
@@ -218,7 +220,16 @@ public class Maker implements Runnable {
 
             panel.getContentPane().add(name_field);
             panel.getContentPane().add(edit_button);
-            panel.getContentPane().add(delete_button);
+            panel.getContentPane().add(delete_button);new Component<JLabel>();
+        }
+
+        private class Component<T extends JComponent> {
+
+            private T component;
+
+            private Component() {
+
+            }
         }
 
     }
