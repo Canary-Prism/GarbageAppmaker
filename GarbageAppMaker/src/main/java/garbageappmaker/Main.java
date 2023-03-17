@@ -4,11 +4,17 @@
 package garbageappmaker;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.BorderLayout;
+import java.io.File;
+import java.util.Arrays;
 
 public class Main {
 
@@ -83,11 +89,12 @@ public class Main {
         frame.getContentPane().add(dud);
 
 
-        frame.setSize(250 + ROOM * 2, 200 + ROOM * 2);
+        frame.setSize(220 + ROOM * 2, 200 + ROOM * 2);
     }
 
     private void start() {
-
+        frame.dispose();
+        new Maker().start();
     }
 
     private JLabel about_label = new JLabel("<html><h1>About</h1>So... i got tired of having to write the sameish bit of code over and over again... so obviously the logical solution is to spend time to write a program that does that for me :D</html>");
@@ -122,5 +129,100 @@ public class Main {
 
         frame.setResizable(true);
         frame.setSize(400 + Main.ROOM, Main.CHANGELOG.length * 30 + 140 + Main.ROOM);
+    }
+
+
+    public static File chooseSaveFile(String extension) {
+        File file;
+        JFileChooser fc = new JFileChooser();
+        JPanel panel = new JPanel();
+
+        panel.setVisible(true);
+        fc.setFileFilter(new FileNameExtensionFilter("." + extension + " Files Only", extension));
+        fc.setDialogType(JFileChooser.SAVE_DIALOG);
+
+        if (fc.showSaveDialog(panel) == JFileChooser.APPROVE_OPTION) {
+            String fileName = fc.getSelectedFile().getAbsolutePath();
+
+            if (!fileName.endsWith(extension))
+                fileName += extension;
+            
+            file = new File(fileName);
+            return file;
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Cancelled");
+            System.exit(0);
+            return null;
+        }
+    }
+
+    public void e() {
+
+    }
+
+    public static final String[] KEYWORDS = {
+        "abstract", 
+        "continue", 
+        "for", 
+        "new", 
+        "switch", 
+        "assert", 
+        "default", 
+        "goto", 
+        "package", 
+        "synchronized", 
+        "boolean", 
+        "do", 
+        "if", 
+        "private", 
+        "this", 
+        "break", 
+        "double", 
+        "implements", 
+        "protected", 
+        "throw", 
+        "byte", 
+        "else", 
+        "import", 
+        "public", 
+        "throws", 
+        "case", 
+        "enum", 
+        "instanceof", 
+        "return", 
+        "transient", 
+        "catch", 
+        "extends", 
+        "int", 
+        "short", 
+        "try", 
+        "char", 
+        "final", 
+        "interface", 
+        "static", 
+        "void", 
+        "class", 
+        "finally", 
+        "long", 
+        "strictfp", 
+        "volatile", 
+        "const", 
+        "float", 
+        "native", 
+        "super", 
+        "while"
+    };
+
+    public static boolean isValidIdentifier(String value) {
+        if (!Character.isJavaIdentifierStart(value.charAt(0)))
+            return false;
+        for (char c : value.toCharArray())
+            if (!Character.isJavaIdentifierPart(c))
+                return false;
+        if (Arrays.asList(KEYWORDS).contains(value))
+            return false;
+        
+        return true;
     }
 }
