@@ -1,6 +1,8 @@
 # GarbageAppMaker
 So i am lazy and hate manual finger labour...
 
+### this is one of the more complicate apps i've made, so [here](https://github.com/Canary-Prism/GarbageAppmaker/blob/main/Tutorial.md) is a tutorial/guide
+
 ### [Download](https://github.com/Canary-Prism/GarbageAppMaker/releases/)
 
 I'm assuming you know how to use GitHub. If not then here:
