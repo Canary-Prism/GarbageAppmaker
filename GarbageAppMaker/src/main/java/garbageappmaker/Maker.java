@@ -59,8 +59,8 @@ public class Maker implements Runnable {
     }
 
     private void prompts() {
-        title_label.setBounds(Main.ROOM, Main.ROOM, 200, 30);
-        title_field.setBounds(Main.ROOM, Main.ROOM + 30, 200, 30);
+        title_label.setBounds(Main.ROOM, Main.ROOM, 250, 30);
+        title_field.setBounds(Main.ROOM, Main.ROOM + 30, 250, 30);
         
         room_field.addKeyListener(new KeyListener() {
             public void keyPressed(KeyEvent e) {}
@@ -78,10 +78,10 @@ public class Maker implements Runnable {
         });
 
         //also might as well set the bounds for stuff that doesn't change later :P
-        room_label.setBounds(Main.ROOM, Main.ROOM + 60, 200, 30);
-        room_field.setBounds(Main.ROOM, Main.ROOM + 90, 200, 30);
+        room_label.setBounds(Main.ROOM, Main.ROOM + 60, 250, 30);
+        room_field.setBounds(Main.ROOM, Main.ROOM + 90, 250, 30);
 
-        next_button.setBounds(Main.ROOM + 90, Main.ROOM + 120, 100, 30);
+        next_button.setBounds(Main.ROOM + 140, Main.ROOM + 120, 100, 30);
         next_button.addActionListener((e) -> {
             preview.setTitle(title_field.getText());
             ROOM = Integer.parseInt(room_field.getText());
@@ -116,7 +116,7 @@ public class Maker implements Runnable {
 
         panel.setResizable(false);
         
-        panel.setSize(200 + Main.ROOM * 2, 170 + Main.ROOM * 2);
+        panel.setSize(250 + Main.ROOM * 2, 170 + Main.ROOM * 2);
 
         panel.setVisible(true);
     }
@@ -137,7 +137,7 @@ public class Maker implements Runnable {
         
         panel.getContentPane().add(dud);
 
-        panel.setSize(100 + Main.ROOM * 2, 150 + Main.ROOM);
+        panel.setSize(100 + Main.ROOM * 2, 120 + Main.ROOM);
     }
 
     private int mains, changelogs;
