@@ -23,3 +23,5 @@ This program uses Java, you should download and install Java Development Kit (JD
 
 ## Historical Changelog
 
+### 1.0
+* made the thing
