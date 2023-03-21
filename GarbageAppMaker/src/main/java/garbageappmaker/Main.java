@@ -18,10 +18,10 @@ import java.util.Arrays;
 
 public class Main {
 
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.0.1";
 
     public static final String[] CHANGELOG = {
-        "made the thing"
+        "Fixed text exceeding the margins in the prompt"
     };
 
     public static final int ROOM = 20;

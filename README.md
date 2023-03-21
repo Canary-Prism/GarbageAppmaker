@@ -23,5 +23,8 @@ This program uses Java, you should download and install Java Development Kit (JD
 
 ## Historical Changelog
 
+### 1.0.1
+* Fixed text exceeding the margins in the prompt
+
 ### 1.0
 * made the thing
