@@ -193,8 +193,18 @@ public class Maker implements Runnable {
             }
             menu_names.add(menu.getName());
         }
+        if (mains != 1) {
+            JOptionPane.showMessageDialog(null, "Invalid number of main menus", "Invalid Main Count", JOptionPane.ERROR_MESSAGE);
+            showMenus(e);
+            return;
+        }
+        if (changelogs > 1) {
+            JOptionPane.showMessageDialog(null, "Invalid number of main menus", "Invalid Main Count", JOptionPane.ERROR_MESSAGE);
+            showMenus(e);
+            return;
+        }
 
-        new Writer(title_field.getText(), ROOM, menus);
+        new Writer(destination, title_field.getText(), ROOM, menus);
     }
 
     private int temp;
