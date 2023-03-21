@@ -13,6 +13,15 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+
+jar {
+    manifest {
+        attributes (
+            'Main-Class': 'garbageappmaker.Main'
+        )
+    }
+}
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
