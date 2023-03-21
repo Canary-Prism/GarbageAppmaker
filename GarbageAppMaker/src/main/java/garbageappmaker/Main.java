@@ -138,7 +138,7 @@ public class Main {
         JPanel panel = new JPanel();
 
         panel.setVisible(true);
-        fc.setFileFilter(new FileNameExtensionFilter("." + extension + " Files Only", extension));
+        fc.setFileFilter(new FileNameExtensionFilter(extension + " Files Only", extension));
         fc.setDialogType(JFileChooser.SAVE_DIALOG);
 
         if (fc.showSaveDialog(panel) == JFileChooser.APPROVE_OPTION) {

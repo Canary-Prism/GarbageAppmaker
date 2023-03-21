@@ -124,7 +124,7 @@ public class Maker implements Runnable {
     private JButton menus_button = new JButton("Menus");
     private JButton variables_button = new JButton("Variables");
 
-    private JButton save_button = new JButton("Save and Quit");
+    private JButton save_button = new JButton("Save");
 
     public void mainMenu(ActionEvent e) {
         panel.getContentPane().removeAll();
@@ -158,10 +158,10 @@ public class Maker implements Runnable {
                 showMenus(e);
                 return;
             }
-            if (menu.getName().equals("main"))
-                mains++;
             if (menu.getName().equals("changelog"))
                 changelogs++;
+            if (menu.getName().equals("main"))
+                mains++;
             else if (menu.references == 0) {
                 JOptionPane.showMessageDialog(null, menu.getName() + " menu is useless as nothing refers to it", "Dead Menu", JOptionPane.ERROR_MESSAGE);
                 showMenus(e);
@@ -194,17 +194,17 @@ public class Maker implements Runnable {
             menu_names.add(menu.getName());
         }
         if (mains != 1) {
-            JOptionPane.showMessageDialog(null, "Invalid number of main menus", "Invalid Main Count", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid number of main menus, must be 1", "Invalid Main Count", JOptionPane.ERROR_MESSAGE);
             showMenus(e);
             return;
         }
         if (changelogs > 1) {
-            JOptionPane.showMessageDialog(null, "Invalid number of main menus", "Invalid Main Count", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Too many changelogs, max of 1", "Invalid Changelog Count", JOptionPane.ERROR_MESSAGE);
             showMenus(e);
             return;
         }
 
-        new Writer(destination, title_field.getText(), ROOM, menus);
+        new Writer(destination, title_field.getText(), ROOM, menus, (changelogs == 1)).write();
     }
 
     private int temp;
@@ -250,6 +250,10 @@ public class Maker implements Runnable {
         private String name;
 
         private Dimension size = new Dimension(300 + ROOM * 2, 300 + ROOM * 2);
+
+        public Dimension getSize() {
+            return size;
+        }
         
 
         private Menu() {
@@ -333,6 +337,9 @@ public class Maker implements Runnable {
 
         private ArrayList<Component<? extends JComponent>> components = new ArrayList<>();
 
+        public ArrayList<Component<? extends JComponent>> getComponents() {
+            return components;
+        }
 
 
         private JLabel sizex_label = new JLabel("Width: ");
@@ -439,28 +446,37 @@ public class Maker implements Runnable {
             panel.getContentPane().add(delete_button);
         }
 
-        private String getName() {
+        public String getName() {
             return name;
         }
 
         /**
          * <p>A compatibility class for multiple different types of JComponents</p>
          */
-        private class Component<E extends JComponent> {
+        public class Component<E extends JComponent> {
 
             public static final String[] SUPPORTED_COMPONENTS = {
                 "JLabel",
                 "JButton"
             };
 
-            private E component;
+            public E component;
             private String name;
 
-            private String getName() {
+            public String getText() {
+                if (component instanceof JLabel) {
+                    return ((JLabel)component).getText();
+                } else if (component instanceof JButton) {
+                    return ((JButton)component).getText();
+                }
+                return "";
+            }
+
+            public String getName() {
                 return name;
             }
 
-            private int posx, posy, sizex, sizey;
+            public int posx, posy, sizex, sizey;
 
             private Component(E component) {
                 this.component = component;
@@ -670,6 +686,10 @@ public class Maker implements Runnable {
             private JComboBox<String> onclick_box;
             private Menu reference_menu;
 
+            public Menu getReferenceMenu() {
+                return reference_menu;
+            }
+
             private JButton back_button = new JButton("Back");
 
             private void show(ActionEvent e) {
@@ -721,11 +741,12 @@ public class Maker implements Runnable {
                         index = i + 1;
                 }
 
-
                 onclick_box = new JComboBox<>(onclick_options.toArray(new String[0]));
 
-                if (index != -1) 
+                if (index != -1) {
                     onclick_box.setSelectedIndex(index);
+                    reference_menu = null;
+                }
 
                 onclick_box.setBounds(Main.ROOM, Main.ROOM + 120, 300, 30);
 
@@ -737,6 +758,8 @@ public class Maker implements Runnable {
                     try {
                         ((JButton)component).removeActionListener(((JButton)component).getActionListeners()[0]);
                     } catch (ArrayIndexOutOfBoundsException r) {}
+
+                    reference_menu = null;
 
                     if (onclick_box.getSelectedIndex() == 0) 
                         return;
